@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="Doubler"/>
+        <attribute name="authors" value="KZ"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2024-09-13 06:00:23 &#1605;"/>
+        <attribute name="created" value="S1o7S1o7MjAyNC0wOS0xMzswNTo0MTowMSDZhTszMDU0"/>
+        <attribute name="edited" value="S1o7S1o7MjAyNC0wOS0xMzswNjowMDoyMyDZhTsxOzMxNjI="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="x" type="Integer" array="False" size=""/>
+            <input variable="x"/>
+            <assign variable="x" expression="x * 2"/>
+        </body>
+    </function>
+</flowgorithm>

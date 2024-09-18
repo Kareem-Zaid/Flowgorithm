@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="from_24h_to_12h"/>
+        <attribute name="authors" value="KZ"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2024-09-15 03:10:43 &#1605;"/>
+        <attribute name="created" value="S1o7S1o7MjAyNC0wOS0xMzswOToxODo1NSDZhTszMDcx"/>
+        <attribute name="edited" value="S1o7S1o7MjAyNC0wOS0xNTswMzoxMDo0MyDZhTsxODszMjIw"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <call expression="intro"/>
+            <declare name="time24H, time12H" type="String" array="False" size=""/>
+            <declare name="h, m" type="Integer" array="False" size=""/>
+            <output expression="&quot;Enter time in 24H format (HH:MM): &quot;" newline="True"/>
+            <input variable="time24H"/>
+            <assign variable="h" expression="parseHours(time24H)"/>
+            <assign variable="m" expression="parseMins(time24H)"/>
+            <assign variable="time12H" expression="conditionalFormatting(h, m)"/>
+            <output expression="time12H" newline="True"/>
+        </body>
+    </function>
+    <function name="conditionalFormatting" type="String" variable="formattedTime">
+        <parameters>
+            <parameter name="hours" type="Integer" array="False"/>
+            <parameter name="mins" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="minsStr, formattedTime" type="String" array="False" size=""/>
+            <assign variable="minsStr" expression="padMins(mins)"/>
+            <if expression="hours == 0">
+                <then>
+                    <assign variable="formattedTime" expression="&quot;12:&quot;&amp;minsStr&amp;&quot; AM&quot;"/>
+                </then>
+                <else>
+                    <if expression="hours &gt;= 1 &amp;&amp; hours &lt;= 11">
+                        <then>
+                            <assign variable="formattedTime" expression="toString(hours)&amp;&quot;:&quot;&amp;minsStr&amp;&quot; AM&quot;"/>
+                        </then>
+                        <else>
+                            <if expression="hours == 12">
+                                <then>
+                                    <assign variable="formattedTime" expression="toString(hours)&amp;&quot;:&quot;&amp;minsStr&amp;&quot; PM&quot;"/>
+                                </then>
+                                <else>
+                                    <if expression="hours &gt;= 13 &amp;&amp; hours &lt;= 23">
+                                        <then>
+                                            <assign variable="formattedTime" expression="toString(hours-12)&amp;&quot;:&quot;&amp;minsStr&amp;&quot; PM&quot;"/>
+                                        </then>
+                                        <else>
+                                            <assign variable="formattedTime" expression="&quot;Invalid Time Input&quot;"/>
+                                            <output expression="&quot;Enter a valid 5-character time in 24H format (HH:MM)&quot;" newline="True"/>
+                                        </else>
+                                    </if>
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="intro" type="None" variable="">
+        <parameters/>
+        <body>
+            <output expression="&quot;This program is used to convert the 24-hour time format to 12-hour format.&quot;" newline="True"/>
+            <output expression="&quot;It has two functions:&quot;" newline="True"/>
+            <output expression="&quot;1. Time parsing: Parses the text 'HH:MM' time to numerical values of hours and minutes.&quot;" newline="True"/>
+            <output expression="&quot;2. Condition comparing: Checks the the satisfied condition, assigns a value to a string variable, and returns it.&quot;" newline="True"/>
+        </body>
+    </function>
+    <function name="padMins" type="String" variable="paddedMins">
+        <parameters>
+            <parameter name="minutes" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="paddedMins" type="String" array="False" size=""/>
+            <if expression="minutes &gt;= 0 &amp;&amp; minutes &lt;= 9">
+                <then>
+                    <assign variable="paddedMins" expression="&quot;0&quot;&amp;toString(minutes)"/>
+                </then>
+                <else>
+                    <assign variable="paddedMins" expression="toString(minutes)"/>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="parseHours" type="Integer" variable="hours">
+        <parameters>
+            <parameter name="timeStr" type="String" array="False"/>
+        </parameters>
+        <body>
+            <declare name="hhStr" type="String" array="False" size=""/>
+            <declare name="hours" type="Integer" array="False" size=""/>
+            <assign variable="hhStr" expression="char(timeStr, 0) &amp; char(timeStr, 1)"/>
+            <assign variable="hours" expression="toInteger(hhStr)"/>
+        </body>
+    </function>
+    <function name="parseMins" type="Integer" variable="mins">
+        <parameters>
+            <parameter name="timeStr" type="String" array="False"/>
+        </parameters>
+        <body>
+            <declare name="mmStr" type="String" array="False" size=""/>
+            <declare name="mins" type="Integer" array="False" size=""/>
+            <assign variable="mmStr" expression="char(timeStr, 3) &amp; char(timeStr, 4)"/>
+            <assign variable="mins" expression="toInteger(mmStr)"/>
+        </body>
+    </function>
+</flowgorithm>
